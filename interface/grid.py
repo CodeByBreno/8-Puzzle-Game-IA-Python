@@ -36,20 +36,28 @@ def check_surrounding(line, column):
             return (line, column-1);
     return None;
 
-def create_grid(master, grade=DEFAULT_GRID, show_number=False):
-    grid = [];
+def create_grid(master, create=[0,1,2,3,4,5,6,7,8]):
+    global buttons_grid, grid_jogo, show_number;
 
+    #print("------------");
     for i in range(0,3):
         for j in range(0,3):
-            grid.append(create_grid_button(master, 
-                                           grade[i][j], show_number));
-            grid[i*3 + j].grid(row=i, 
-                               column=j, 
-                               padx=PADX_GRID, 
-                               pady=PADY_GRID,);
-                               
+            value = grid_jogo[i][j];
+            if value in create:
+                aux = i*3 + j;
+                #print("created button " + str(aux));
+                buttons_grid[aux] = create_grid_button(master, 
+                                           grid_jogo[i][j]);
+                buttons_grid[aux].grid(row=i, 
+                                column=j, 
+                                padx=PADX_GRID, 
+                                pady=PADY_GRID);
+    print("No create_grid : " + str(show_number));   
+    if show_number:
+        showNumbers();
 
-def create_grid_button(master, content, show_number) -> Button:
+def create_grid_button(master, content) -> Button:
+
     background_image = PhotoImage(file='img/image' + str(content) + '.png');
     figura = Label(master, 
                    image=background_image);
@@ -60,20 +68,16 @@ def create_grid_button(master, content, show_number) -> Button:
                   width=WIDTH_GRID, 
                   height=HEIGHT_GRID, 
                   font=MAIN_FONT, 
-                  text=content,
-                  command=lambda m=content: move_tile(master, m, show_number),
+                  text=" ",
+                  command=lambda m=content: move_tile(master, m),
                   fg=GRID_BUTTON_COLOR,
                   border=0,
-                  image=background_image);
-    
-    if show_number:
-        botao.configure(compound="c");
-    else:
-        botao.configure(compound=None);
+                  image=background_image,
+                  compound="c");
     
     return botao;
 
-def move_tile(main, m, show_number):
+def move_tile(main, m):
     global grid_jogo;
 
     content_position = get_position(m);
@@ -83,7 +87,12 @@ def move_tile(main, m, show_number):
         grid_jogo[empty_location[0]][empty_location[1]] = m;
         grid_jogo[content_position[0]][content_position[1]] = 0;
     
-    create_grid(main, grid_jogo, show_number);
+    if grid_jogo == DEFAULT_GRID:
+        main.config(bg="#ff0000");
+    else:
+        main.config(bg=MAIN_BACKGROUND);
+    
+    create_grid(main, create=[0,m]);
 
 def mix_grid(target):
     global grid_jogo;
@@ -93,22 +102,41 @@ def mix_grid(target):
     table.scramble(MIX_STEPS);
     table.show();
 
-    grid_jogo = table.body;
-    create_grid(target, grid_jogo, show_number=show_number);
+    grid_jogo = table.body; #cuidado com isso aq
+    create_grid(target);
 
-def showNumbers(master):
-    global show_number;
+def restoreGrid(target):
     global grid_jogo;
-                                               
+
+    grid_jogo = [[0, 1, 2],[3, 4, 5],[6, 7, 8]];
+    create_grid(target);
+
+def changeShowNumber():
+    global show_number;
+
     if show_number:
         show_number = False;
     else:
         show_number = True;
     
-    create_grid(master, grid_jogo, show_number);
+    print("No changeShowNumber : " + str(show_number));   
+    showNumbers();
+
+def showNumbers():
+    global show_number, grid_jogo;
+                                               
+    if show_number:
+        for i in range(0,9):
+            valor = grid_jogo[i//3][i%3];
+            buttons_grid[i].config(text=str(valor));
+    else:
+        for each in buttons_grid:
+            each.config(text=' ');
+        
 
 def solver(answer_widget):
     global grid_jogo;
+    global texto_resposta;
     
     position = get_position(0);
     print("Clicou no Solver");

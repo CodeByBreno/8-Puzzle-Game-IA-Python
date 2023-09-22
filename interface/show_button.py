@@ -13,13 +13,13 @@ def create_show_number_button(master, r, c, target):
     figura.image = visionImage;
 
     show_num_button = Button(master,
-                             background=BACKGROUND_show_number,
-                             activebackground=BACKGROUND_show_number,
+                             background=BACKGROUND_SHOW_NUMBER,
+                             activebackground=BACKGROUND_SHOW_NUMBER,
                              image=visionImage,
-                             width=WIDTH_show_number,
-                             height=HEIGHT_show_number,
+                             width=WIDTH_SHOW_WIDTH,
+                             height=HEIGHT_SHOW_NUMBER,
                              font=FONT_SHOW_BUTTON,
-                             command=lambda: showNumbers(target),
+                             command=changeShowNumber,
                              border = 0);
     show_num_button.grid(column=c,
                          row=r,

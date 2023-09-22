@@ -3,7 +3,9 @@ from tkinter import *;
 from logic.funcoesAuxiliares import *;
 from global_data import *;
 
-def create_answer_widget(master, r, c, texto_resposta) -> Label:
+def create_answer_widget(master, r, c) -> Label:
+    global texto_resposta;
+    
     #Isso é bem estranho, mas para fazer uma imagem funcionar
     #em um botão, é preciso criar um label como feito aqui embaixo
     #(sim, não faz sentido)
@@ -24,5 +26,5 @@ def create_answer_widget(master, r, c, texto_resposta) -> Label:
                 row=r, 
                 padx=(PADX_LEFT_ANSWER, PADX_RIGHT_ANSWER), 
                 pady=PADY_ANSWER, 
-                columnspan=4);
+                columnspan=3);
     return answer;

@@ -29,8 +29,8 @@ def create_solve_button(master, answer_widget, r, c) -> Button:
                           compound="c",
                           border=0);
     solve_button.grid(column=c, 
-                      row=r, 
+                      row=r,
                       padx=PADX_SOLVE_BUTTON, 
                       pady=PADY_SOLVE_BUTTON,
-                      columnspan=2);
+                      columnspan=3);
     return solve_button;

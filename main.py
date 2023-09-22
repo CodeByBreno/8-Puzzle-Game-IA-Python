@@ -13,20 +13,21 @@ from interface.show_button import *;
 from interface.solve_button import *;
 from interface.answer_widget import *;
 from interface.scramble_button import *;
+from interface.default_button import *;
 from global_data import *;
 
 from ctypes import windll;
 windll.shcore.SetProcessDpiAwareness(1);
 
 def create_window(root, master):
-    global grid_jogo;
+    global grid_jogo, shownum_button;
 
     container_grade = Frame(master,
                             width=420,
                             height=420);
     container_grade.grid(column=0, row=0);
 
-    create_grid(container_grade, grid_jogo);
+    create_grid(container_grade);
     
     root.bind(sequence="<Key>", func=lambda event, main=container_grade: key_pressed(event, main));
 
@@ -36,11 +37,27 @@ def create_window(root, master):
                             background=BACKGROUND_CONTAINER_ANSWER);
     container_answer.grid(column=1, row=0);
 
-    answer = create_answer_widget(container_answer, r=0, c=0, texto_resposta='');
-    solve_button = create_solve_button(container_answer, answer, r=1, c=0);
-    shownum_button = create_show_number_button(container_answer, r=1, c=2, target=container_grade);
-    scramble_button = create_scramble_button(container_answer, r=1,c=3, target=container_grade);
+    answer = create_answer_widget(container_answer, r=0, c=0);
+    
+    solve_frame = Frame(container_answer,
+                            width=420,
+                            height=420,
+                            background=BACKGROUND_CONTAINER_ANSWER);
+    solve_frame.grid(row=1, column=0);
+    solve_button = create_solve_button(solve_frame, answer, r=1, c=0);
 
+    function_buttons = Frame(container_answer,
+                            width=420,
+                            height=420,
+                            background=BACKGROUND_CONTAINER_ANSWER);
+    function_buttons.grid(row=1, column=1);
+
+    shownum_button = create_show_number_button(function_buttons, r=0, c=0, target=container_grade);
+    scramble_button = create_scramble_button(function_buttons, r=0,c=1, target=container_grade);
+    default_button = create_default_button(function_buttons, r=0, c=2, target=container_grade);
+
+
+buttons_grid = [0,0,0,0,0,0,0,0,0];
 root = Tk();
 root.geometry(WINDOW_RESOLUTION);
 root.title("8-Puzzle Game");

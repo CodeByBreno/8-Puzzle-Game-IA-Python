@@ -26,3 +26,4 @@ def create_scramble_button(master, r, c, target):
                          padx=PADX_SCRAMBLE,
                          pady=PADY_SCRAMBLE);
     return scramble_button;
+    
