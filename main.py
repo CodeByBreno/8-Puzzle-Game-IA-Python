@@ -1,4 +1,4 @@
-# Formula_bem_formulada
+# 8_Puzzle_Game
 # Desafio 1 para Disciplina de Inteligência Artificial - 2023.1
 # Feito por: Breno Gabriel de Souza Coelho | Turma 2019.2
 # Apresentado em 18/09/2023
@@ -44,7 +44,7 @@ def create_window(root, master):
                             height=420,
                             background=BACKGROUND_CONTAINER_ANSWER);
     solve_frame.grid(row=1, column=0);
-    solve_button = create_solve_button(solve_frame, answer, r=1, c=0);
+    solve_button = create_solve_button(solve_frame, answer, r=1, c=0, search_type=SEARCH_TYPE);
 
     function_buttons = Frame(container_answer,
                             width=420,

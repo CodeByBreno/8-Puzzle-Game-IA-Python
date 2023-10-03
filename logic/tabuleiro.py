@@ -1,5 +1,9 @@
-from logic.funcoesAuxiliares import *;
+import sys;
+sys.path.append("..");
+
 import random;
+from logic.funcoesAuxiliares import *;
+from global_data import *;
 
 class tabuleiro:
 
@@ -150,3 +154,11 @@ class tabuleiro:
                 self.move("BOTTOM");
             elif dice == 3:
                 self.move("LEFT");
+
+    def avaliate(self) -> int:
+        p = 0;
+        for i in range(0,3):
+            for j in range(0,3):
+                if self.body[i][j] == DEFAULT_GRID[i][j]:
+                    p += 1;
+        return p;

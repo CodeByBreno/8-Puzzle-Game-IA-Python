@@ -8,7 +8,7 @@ from logic.node import *;
 from logic.arvoreDeBusca import *;
 from global_data import *;
 
-def create_solve_button(master, answer_widget, r, c) -> Button:
+def create_solve_button(master, answer_widget, r, c, search_type) -> Button:
     global show_number;
 
     botao = PhotoImage(file="img/button.png");
@@ -24,7 +24,7 @@ def create_solve_button(master, answer_widget, r, c) -> Button:
                           height=HEIGHT_SOLVE_BUTTON, 
                           text=TEXTO_SOLVE_BUTTON, 
                           font=FONT_BUTTON, 
-                          command=lambda: solver(answer_widget),
+                          command=lambda: solver(answer_widget, search_type),
                           fg=FONT_BUTTON_COLOR,
                           compound="c",
                           border=0);

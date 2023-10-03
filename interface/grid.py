@@ -133,8 +133,7 @@ def showNumbers():
         for each in buttons_grid:
             each.config(text=' ');
         
-
-def solver(answer_widget):
+def solver(answer_widget, search_type):
     global grid_jogo;
     global texto_resposta;
     
@@ -144,7 +143,7 @@ def solver(answer_widget):
     tab = tabuleiro(grid_jogo, position[0], position[1]);
     head = Node(tab);
     arvore = ArvoreDeBusca(head);
-    solution = arvore.busca_em_largura(10);
+    solution = arvore.buscar(arvore, search_type);
     direcoes = [];
 
     if type(solution) != str:
@@ -164,7 +163,6 @@ def key_pressed(event, widget):
 
     p = get_position(0);
     table = tabuleiro(grid_jogo, p[0], p[1]);
-    print(p);
     table.show();
 
     if event.char == 'w' or event.char == 'W':
@@ -175,6 +173,7 @@ def key_pressed(event, widget):
         table.move("BOTTOM");
     elif event.char == 'a' or event.char == 'A':
         table.move("LEFT");
-    
+    changed_value = table.body[p[0]][p[1]];
+
     grid_jogo = table.body;
-    create_grid(widget, grid_jogo);
+    create_grid(widget, [0, changed_value]);
