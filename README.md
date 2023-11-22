@@ -15,7 +15,6 @@ pip install tkinter
 Feito isso, acesse a pasta principal do projeto e execute o programa com 
 
 ```
-
 python Main.py
 ```
 
